@@ -93,4 +93,4 @@ console.log("Is there any Part-Time Wage?", hasPartTimeWage);
 
 
 let daysWorked = dailyRecords.filter(record => record.wage > 0).length;
-console.log(`Total Days Employee Worked: ${daysWorked}`);
+console.log(`Total Days Employee Worked: ${daysWorked}`); 
