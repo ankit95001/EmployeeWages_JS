@@ -53,17 +53,29 @@ while (totalDays < MAX_WORKING_DAYS && totalHours < MAX_WORKING_HOURS) {
 console.log("Employee Work Data:", empDailyData);
 
 
-let totalWage = Array.from(dailyWageMap.values()).reduce((sum, wage) => sum + wage, 0);
-const totalWorkedHours = Array.from(dailyHourMap.values()).reduce((sum, hours) => sum + hours, 0);
+const totalWage = empDailyData.reduce((sum, record) => sum + record.wageEarned, 0);
+const totalWorkedHours = empDailyData.reduce((sum, record) => sum + record.hoursWorked, 0);
 console.log(`Total Wage: $${totalWage}, Total Hours Worked: ${totalWorkedHours} hrs`);
 
-console.log("Day-wise Wages:", Array.from(dailyWageMap.entries()).map(([day, wage]) => `Day ${day}: $${wage}`));
+
+console.log("Full Working Days:");
+empDailyData.forEach(record => {
+    if (record.hoursWorked === FULL_TIME_HOURS) {
+        console.log(`Day ${record.day}`);
+    }
+});
 
 
-const fullWorkDays = Array.from(dailyHourMap.entries()).filter(([day, hours]) => hours === FULL_TIME_HOURS).map(([day]) => `Day ${day}`);
-const partWorkDays = Array.from(dailyHourMap.entries()).filter(([day, hours]) => hours === PART_TIME_HOURS).map(([day]) => `Day ${day}`);
-const noWorkDays = Array.from(dailyHourMap.entries()).filter(([day, hours]) => hours === 0).map(([day]) => `Day ${day}`);
+const partWorkDays = empDailyData
+    .filter(record => record.hoursWorked === PART_TIME_HOURS)
+    .map(record => `Day ${record.day}`);
+console.log("Part Working Days:", partWorkDays);
 
+
+const noWorkDays = empDailyData
+    .filter(record => record.hoursWorked === 0)
+    .map(record => `Day ${record.day}`);
+console.log("No Working Days:", noWorkDays);
 
 let fullTimeDays = dailyRecords.filter(record => record.wage === FULL_TIME_WAGE);
 console.log("Days with Full-Time Wage:", fullTimeDays.map(record => `Day ${record.day}`));
