@@ -24,6 +24,7 @@ let dailyWages = [];
 let dailyRecords = []; 
 let dailyWageMap = new Map();
 let dailyHourMap = new Map();
+let empDailyData = [];
 
 
 while (totalDays < MAX_WORKING_DAYS && totalHours < MAX_WORKING_HOURS) {
@@ -39,8 +40,17 @@ while (totalDays < MAX_WORKING_DAYS && totalHours < MAX_WORKING_HOURS) {
     totalDays++;
 
     dailyWageMap.set(totalDays, dailyWage);
-    dailyHourMap.set(totalDays, workHours);
+    dailyHourMap.set(totalDays, workHours); 
+
+    empDailyData.push({
+        day: totalDays,
+        hoursWorked: workHours,
+        wageEarned: dailyWage
+    });
 }
+
+
+console.log("Employee Work Data:", empDailyData);
 
 
 let totalWage = Array.from(dailyWageMap.values()).reduce((sum, wage) => sum + wage, 0);
